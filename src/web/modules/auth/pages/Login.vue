@@ -16,15 +16,20 @@
         v-model="form.password">
       <button type="submit" v-on:click="submit()">Entrar</button>
     </form>
+    <TabsComponent />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import TabsComponent from '../../../components/TabsComponent'
 // import api from '../../../../core/services/api'
 
 export default {
-  // name:"Login" ,
+  name: 'Login',
+  components: {
+    TabsComponent
+  },
   data: () => ({
     form: {
       email: 'admin@goscore.com.br',
@@ -38,14 +43,15 @@ export default {
   methods: {
     ...mapActions('auth', ['ActionDoLogin']),
     async submit () {
-      // this.ActionSetUser(this.form)
-      await this.ActionDoLogin(this.form)
-      // const response = await api.post('login', this.form)
-      // eslint-disable-next-line
-      // localStorage.setItem('TOKEN_USER', )
-      // console.log(response)
+      try{
+        await this.ActionDoLogin(this.form)
+        this.$router.push({ name: 'home' })
 
-      // this.response = response;
+      }catch(e){
+        
+      }
+      // this.ActionSetUser(this.form)
+     
     }
   }
 
